@@ -1,0 +1,35 @@
+# Requirements for RAG with RBAC, Guardrails and Monitoring
+# Install with: pip install -r requirements.txt
+
+# LLM + orchestration
+langchain>=0.0.200
+openai>=0.27.0
+transformers>=4.30.0
+sentence-transformers>=2.2.2
+faiss-cpu>=1.7.4
+tiktoken>=0.4.0
+
+# Utilities
+numpy>=1.24
+scikit-learn>=1.2.2
+requests>=2.31.0
+python-dotenv>=1.0.0
+
+# Web / API and Auth (RBAC)
+fastapi>=0.95.0
+uvicorn[standard]>=0.20.0
+pydantic>=1.10
+sqlalchemy>=1.4
+alembic>=1.10
+python-jose>=3.3.0
+passlib[bcrypt]>=1.7.4
+
+# Guardrails / safety / monitoring
+guardrails>=0.1.0
+prometheus-client>=0.15.0
+sentry-sdk>=1.9.0
+
+# Dev / testing
+pytest>=7.3
+black
+flake8
