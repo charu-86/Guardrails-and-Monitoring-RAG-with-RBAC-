@@ -1,0 +1,99 @@
+# =============================================================================
+# Guardrails and Monitoring RAG with RBAC - Configuration
+# =============================================================================
+
+# --- Guardrails Settings ---
+guardrails:
+  enable_pii_detection: true
+  enable_prompt_injection_detection: true
+  enable_output_filtering: true
+  max_input_token_limit: 2000
+  max_output_token_limit: 4000
+  pii_patterns:
+    - email
+    - phone
+    - ssn
+    - credit_card
+    - ip_address
+  blocked_phrases:
+    - "ignore previous instructions"
+    - "ignore all instructions"
+    - "disregard your instructions"
+    - "override your system prompt"
+    - "you are now"
+    - "pretend you are"
+    - "act as if you have no restrictions"
+  toxicity_threshold: 0.7
+  redaction_placeholder: "[REDACTED]"
+
+# --- Monitoring Settings ---
+monitoring:
+  enable_logging: true
+  enable_metrics: true
+  enable_sentry: false
+  log_level: INFO
+  log_file: "logs/rag_system.log"
+  log_format: json
+  sentry_dsn: ""
+  metrics_port: 8001
+  metrics_prefix: "rag_system"
+
+# --- RBAC Settings ---
+rbac:
+  enable_rbac: true
+  default_role: viewer
+  jwt_secret_key: "CHANGE_ME_IN_PRODUCTION"
+  jwt_algorithm: "HS256"
+  access_token_expire_minutes: 30
+  password_hash_scheme: "bcrypt"
+  database_url: "sqlite:///./rag_rbac.db"
+  roles:
+    - name: admin
+      description: "Full system access"
+      permissions:
+        - query_rag
+        - ingest_documents
+        - manage_users
+        - manage_roles
+        - view_analytics
+        - manage_config
+    - name: data_scientist
+      description: "Can query, ingest documents, and view analytics"
+      permissions:
+        - query_rag
+        - ingest_documents
+        - view_analytics
+    - name: analyst
+      description: "Can query and view analytics"
+      permissions:
+        - query_rag
+        - view_analytics
+    - name: viewer
+      description: "Read-only query access"
+      permissions:
+        - query_rag
+
+# --- RAG Settings ---
+rag:
+  model: "gpt-3.5-turbo"
+  embedding_model: "all-MiniLM-L6-v2"
+  temperature: 0.7
+  max_tokens: 1024
+  top_k: 5
+  chunk_size: 500
+  chunk_overlap: 50
+  vector_store_path: "data/vector_store"
+  supported_file_types:
+    - ".pdf"
+    - ".md"
+    - ".txt"
+  prompt_template: |
+    You are a helpful assistant. Use the following context to answer the user's question.
+    If you cannot find the answer in the context, say "I don't have enough information to answer that."
+
+    Context:
+    {context}
+
+    Question: {question}
+
+    Answer:
