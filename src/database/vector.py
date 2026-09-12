@@ -1,5 +1,5 @@
 from database.chroma import collect
-from chuks.chunksService import chunk_document, query_document, chunk_Ingested_document
+from chunks.chunksService import chunk_document, query_document, chunk_Ingested_document
 from llm.llmService import generate_answer, generate_answer_without_context, validate_query
 from Ingestion.models import IngestedDocument
 
