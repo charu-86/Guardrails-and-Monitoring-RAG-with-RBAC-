@@ -2,11 +2,11 @@
 # sujoy = sujoy.strip("abc")
 # print(sujoy)  # Output: Hello
 
-# from Ingestion.ingestion_service import IngestionService
+# from ingestion.ingestion_service import ingestionService
 # from database.vector import add_Ingested_Document
 
 
-# service = IngestionService()
+# service = ingestionService()
 
 # document = service.ingest_local_pdf("/Users/charu/Downloads/fees1dd/fees109.pdf")
 

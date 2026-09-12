@@ -1,6 +1,6 @@
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 
-from Ingestion.models import IngestedDocument
+from ingestion.models import IngestedDocument
 langchainChunks = RecursiveCharacterTextSplitter(
     chunk_size=1000,
     chunk_overlap=100

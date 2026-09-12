@@ -1,7 +1,7 @@
 import os
 
-from Ingestion.base import DocumentSource
-from Ingestion.models import SourceFile
+from ingestion.base import DocumentSource
+from ingestion.models import SourceFile
 
 
 class LocalFileSource(DocumentSource):

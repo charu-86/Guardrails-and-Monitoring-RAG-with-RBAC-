@@ -6,11 +6,11 @@ from database.model import DocumentItem
 from database.chroma import collect
 from database.vector import addDocument, generateAnswerWithoutContext, queryDocument, QueryDocumentUpdated, deleteDocument, getAllDocuments, deleteAllDocuments, generateAnswerFromQuery, generateAnswerFromQueryWithContext, validate_query, isPromptValid
 from guardrails.guardrailService import validate_input, validate_output
-from Ingestion.ingestion_service import IngestionService
-from Ingestion.models import LocalPDFRequest
+from ingestion.ingestion_service import ingestionService
+from ingestion.models import LocalPDFRequest
 
 app = FastAPI()
-ingestion_service = IngestionService()
+ingestion_service = ingestionService()
 
 # @app.get("/")
 # def read_root():

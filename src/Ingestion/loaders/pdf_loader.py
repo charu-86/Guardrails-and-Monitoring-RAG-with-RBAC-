@@ -3,8 +3,8 @@ import uuid
 
 from pypdf import PdfReader
 
-from Ingestion.base import DocumentLoader
-from Ingestion.models import SourceFile, IngestedDocument
+from ingestion.base import DocumentLoader
+from ingestion.models import SourceFile, IngestedDocument
 
 class PDFLoader(DocumentLoader):
 

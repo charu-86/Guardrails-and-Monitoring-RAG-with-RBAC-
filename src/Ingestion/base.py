@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from Ingestion.models import SourceFile, IngestedDocument
+from ingestion.models import SourceFile, IngestedDocument
 
 
 class DocumentSource(ABC):
