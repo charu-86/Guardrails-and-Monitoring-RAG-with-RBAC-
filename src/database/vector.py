@@ -1,6 +1,7 @@
 from database.chroma import collect
-from chuks.chunksService import chunk_document, query_document
+from chuks.chunksService import chunk_document, query_document, chunk_Ingested_document
 from llm.llmService import generate_answer, generate_answer_without_context, validate_query
+from Ingestion.models import IngestedDocument
 
 def addDocument(document):
     doc = []
@@ -19,6 +20,36 @@ def addDocument(document):
 
     collect.add(
         documents=doc,
+        metadatas=metadata,
+        ids=ids
+    )
+
+def add_Ingested_Document(document):
+
+    chunks = chunk_Ingested_document(document)
+
+    documents = []
+    ids = []
+    metadata = []
+
+    for index, chunk in enumerate(chunks):
+
+        documents.append(chunk)
+
+        ids.append(
+            f"{document.id}_{index}"
+        )
+
+        metadata.append({
+            "document_id": document.id,
+            "filename": document.filename,
+            "file_type": document.file_type,
+            "chunk_index": index,
+            **document.metadata
+        })
+
+    collect.add(
+        documents=documents,
         metadatas=metadata,
         ids=ids
     )

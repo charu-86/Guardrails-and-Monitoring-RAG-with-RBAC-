@@ -82,7 +82,7 @@ This project provides a robust framework for:
 ## Installation
 
 ### Prerequisites
-- Python 3.8+
+- Python 3.10+
 - pip or conda
 
 ### Setup

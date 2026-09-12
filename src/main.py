@@ -6,12 +6,30 @@ from database.model import DocumentItem
 from database.chroma import collect
 from database.vector import addDocument, generateAnswerWithoutContext, queryDocument, QueryDocumentUpdated, deleteDocument, getAllDocuments, deleteAllDocuments, generateAnswerFromQuery, generateAnswerFromQueryWithContext, validate_query, isPromptValid
 from guardrails.guardrailService import validate_input, validate_output
+from Ingestion.ingestion_service import IngestionService
+from Ingestion.models import LocalPDFRequest
 
 app = FastAPI()
+ingestion_service = IngestionService()
 
-@app.get("/")
-def read_root():
-    return {"Hello": "World"}
+# @app.get("/")
+# def read_root():
+#     return {"Hello": "World"}
+@app.post("/ingest/local-pdf")
+def ingest_local_pdf(request: LocalPDFRequest):
+
+    document = ingestion_service.ingest_local_pdf(
+        request.file_path
+    )
+
+    return {
+        "status": "success",
+        "document_id": document.id,
+        "filename": document.filename,
+        "file_type": document.file_type,
+        "content_length": len(document.content),
+        "metadata": document.metadata
+    }
 
 @app.post("/import-data")
 def import_data(item: DocumentItem):
